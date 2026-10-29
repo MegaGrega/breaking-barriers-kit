@@ -9,10 +9,10 @@ The demo is what judges remember. A plain UI that never fails beats a beautiful 
 
 ## Choose the stack (decide in 2 minutes)
 
-- **Streamlit** (default): Python, same repo as the agent, chat UI in ~40 lines (`st.chat_input`, `st.chat_message`, `st.write_stream`). Pick this unless the team has a dedicated frontend person.
-- **Vite + React + Tailwind**: if the end user is on a phone, the nonprofit wants a branded look, or a frontend dev on the team prefers it. Call the agent through a tiny FastAPI/Express proxy; never put AWS credentials in the browser.
+- **Vite + React + Tailwind + Motion** (default): the only option that leaves room for real polish, animation, and a phone-first layout. Call the agent through a tiny FastAPI proxy (same Python repo as the agent) that streams with Server-Sent Events; never put AWS credentials in the browser. Use the `pick-ui-library` skill before hand-rolling any component (toasts, command menu, charts).
+- **Streamlit**: fallback when nobody on the team will own the frontend, or the agent is still not working by Day 2 noon. Chat UI in ~40 lines (`st.chat_input`, `st.chat_message`, `st.write_stream`), but almost no control over motion or visual detail.
 
-Ask the user which, recommend Streamlit, and go.
+Recommend React, confirm with the user, and go.
 
 ## Must-haves
 
@@ -26,6 +26,29 @@ Ask the user which, recommend Streamlit, and go.
    - The UI must not show which mode is active, except a tiny dot in a corner only the presenter knows about.
 6. **Accessibility and inclusion** (these score on social impact): large base font, high contrast, works at 375px width, keyboard usable, language toggle if the persona needs it (Amazon Translate or ask the model), plain-language reading level, alt text.
 7. **One "before vs after" moment**: a screen or toggle that shows the old workflow time vs the new one, using the brief's success metric.
+
+## Motion that earns its place in an agent demo
+
+Spend animation on the AI's waiting time and the evidence, not on decoration:
+- Streamed text that appears smoothly, not in jerky chunks.
+- A step indicator that narrates tool calls as they happen ("checking eligibility rules…" → ✓).
+- Citations and result cards entering after the answer, so the eye follows cause → effect.
+- The before/after moment (old workflow time vs new) as the one orchestrated animation.
+Everything else stays still. Respect `prefers-reduced-motion`.
+
+## Polish pass (Day 2 evening → Day 3 10:30, time-boxed)
+
+Run only after the golden path works end to end. Use these skills in this order if they are installed; skip any that are missing. Stop at feature freeze no matter where you are.
+
+1. `interfaces:state-machine`: render every state of the main chat/result component (idle, thinking, streaming, tool running, error, empty, long answer). Fix the ugly ones first; this is where agent demos look broken.
+2. `break-ui` (or `interfaces:break`): worst-case data — long names, non-Latin text, zero results. Fix anything the golden path could hit.
+3. `interfaces:better-interface`: one ranked report across accessibility, layout, copy, type, color, polish. Do the top 5 only.
+4. `cognitive-accessibility:simplify` and `accessible-content:rewrite`: plain language and lower cognitive load on every screen the persona sees. This is the dignity story judges reward.
+5. `find-animation-opportunities`, then build the 2–3 best with `jmo-workflow:animate`, then `review-animations` on what you built.
+6. `interfaces:better-accessibility`: keyboard, focus, screen reader, zoom. Quick wins only.
+7. `mobile-native`: only if the persona uses a phone.
+
+Commit before each step so a bad polish change can be reverted in one command.
 
 ## Demo safety checklist (do by Day 3 noon)
 

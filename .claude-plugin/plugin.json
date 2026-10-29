@@ -1,6 +1,6 @@
 {
   "name": "breaking-barriers",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "AI-for-Good hackathon workflow on AWS: nonprofit discovery, AgentCore + Strands + Bedrock agents, demo-proof frontends, responsible AI evals, production handoff, and pitch building.",
   "author": {
     "name": "MegaGrega"
