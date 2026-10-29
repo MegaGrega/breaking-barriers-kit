@@ -1,0 +1,345 @@
+<title>Breaking Barriers Field Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single reading column (~72ch) with a sticky section nav; cards only for skills and idea patterns. */
+:root {
+  --bg: #f6f7f4;
+  --surface: #ffffff;
+  --fg: #1c2420;
+  --muted: #5b6862;
+  --line: #d9dfda;
+  --accent: #1f6b52;       /* spruce */
+  --accent-soft: #e2efe9;
+  --warm: #b4561f;         /* "do now" */
+  --warm-soft: #f7e8dd;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121714; --surface: #1a211d; --fg: #e4ebe6; --muted: #9aa8a0; --line: #2c3631;
+    --accent: #6cc4a1; --accent-soft: #1f3129; --warm: #f0a070; --warm-soft: #3a2a20; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121714; --surface: #1a211d; --fg: #e4ebe6; --muted: #9aa8a0; --line: #2c3631;
+  --accent: #6cc4a1; --accent-soft: #1f3129; --warm: #f0a070; --warm-soft: #3a2a20; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font: 16px/1.6 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 860px; margin: 0 auto; padding-block: 32px 80px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 6vw, 3.1rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 12px; }
+h3 { font-size: 1.1rem; font-weight: 600; }
+p { margin: 0 0 12px; max-width: 68ch; }
+a { color: var(--accent); }
+code, .mono { font-family: var(--mono); font-size: 0.88em; }
+code { background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.eyebrow { font: 500 0.75rem/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+header { display: grid; gap: 14px; padding-bottom: 24px; border-bottom: 1px solid var(--line); }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 0.95rem; color: var(--muted); }
+.facts b { color: var(--fg); font-weight: 600; }
+
+nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); margin-inline: -4px; }
+nav ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 8px 0; overflow-x: auto; scrollbar-width: none; }
+nav a { display: block; padding: 6px 10px; border-radius: 6px; text-decoration: none; color: var(--muted); font-size: 0.9rem; white-space: nowrap; }
+nav a:hover, nav a:focus-visible { color: var(--fg); background: var(--accent-soft); outline: none; }
+
+section { padding-top: 40px; scroll-margin-top: 56px; }
+.lede { font-size: 1.08rem; }
+
+.callout { border-left: 3px solid var(--warm); background: var(--warm-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 16px 0; }
+.callout p:last-child { margin: 0; }
+
+.criteria { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 16px 0; }
+.criteria div { border-top: 2px solid var(--accent); padding-top: 8px; }
+.criteria b { display: block; font-family: var(--display); font-size: 1.05rem; }
+.criteria span { color: var(--muted); font-size: 0.92rem; }
+
+ul.plain { padding-left: 20px; margin: 0 0 12px; }
+ul.plain li { margin-bottom: 6px; max-width: 68ch; }
+
+/* Countdown checklist */
+.day { display: grid; grid-template-columns: 92px 1fr; gap: 6px 16px; padding: 14px 0; border-top: 1px solid var(--line); }
+.day:first-of-type { border-top: none; }
+.day .when { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); padding-top: 3px; }
+.day .when b { display: block; color: var(--fg); font-family: var(--display); font-size: 1.05rem; }
+.day ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; min-width: 0; }
+.day label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+.day input { margin-top: 5px; accent-color: var(--accent); width: 16px; height: 16px; flex: none; }
+.day input:checked + span { color: var(--muted); text-decoration: line-through; }
+.progress { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); }
+@media (max-width: 520px) { .day { grid-template-columns: 1fr; } }
+
+/* Skills */
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin-top: 16px; }
+.skill { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.skill .name { font-family: var(--mono); font-weight: 500; color: var(--accent); font-size: 0.95rem; }
+.skill .when { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.skill p { margin: 0; font-size: 0.93rem; }
+.skill .say { font-size: 0.85rem; color: var(--muted); }
+
+pre { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto; font: 0.85rem/1.5 var(--mono); margin: 12px 0; }
+
+/* Idea patterns */
+.shapes { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin: 16px 0 8px; }
+.shapes div { background: var(--accent-soft); border-radius: 8px; padding: 10px 12px; font-size: 0.92rem; }
+.shapes b { display: block; font-family: var(--display); }
+.track { margin-top: 24px; }
+.track > h3 { font-size: 1.25rem; margin-bottom: 10px; }
+.ideas { display: grid; gap: 10px; }
+.idea { border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 12px 16px; min-width: 0; }
+.idea h4 { margin: 0 0 4px; font: 600 1rem/1.3 var(--body); }
+.idea p { margin: 0 0 6px; font-size: 0.93rem; }
+.idea .stack { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); }
+.idea .dignity { font-size: 0.88rem; color: var(--warm); margin: 0; }
+.tag { font: 500 0.7rem/1 var(--mono); text-transform: uppercase; letter-spacing: 0.06em; padding: 3px 6px; border-radius: 4px; background: var(--warm-soft); color: var(--warm); vertical-align: 2px; margin-left: 6px; white-space: nowrap; }
+
+/* Timeline table */
+.tablewrap { overflow-x: auto; margin: 12px 0; }
+table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: 0.93rem; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--mono); font-weight: 500; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+td:first-child { white-space: nowrap; font-family: var(--mono); font-size: 0.85rem; }
+
+.sources li { font-size: 0.9rem; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">AWS Breaking Barriers 2026 · AI for Good · Seattle</div>
+    <h1>Breaking Barriers Field Guide</h1>
+    <div class="facts">
+      <span><b>Nov 3–5</b> Tue–Thu</span>
+      <span><b>SEA41</b> 2121 7th Ave</span>
+      <span><b>Day 1</b> keynote 8:00 am</span>
+      <span><b>Teams</b> up to 8, nonprofit rep included</span>
+    </div>
+  </header>
+
+  <nav aria-label="Sections">
+    <ul>
+      <li><a href="#win">How it's won</a></li>
+      <li><a href="#countdown">Countdown</a></li>
+      <li><a href="#standout">Standing out</a></li>
+      <li><a href="#kit">Claude Code kit</a></li>
+      <li><a href="#ideas">Idea patterns</a></li>
+      <li><a href="#days">Day by day</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ul>
+  </nav>
+
+  <section id="win">
+    <h2>How this event is won</h2>
+    <p class="lede">You don't pick the problem. A nonprofit brings it, and the nonprofit is what wins: the UK edition announced "Bookmark Reading Charity selected as London winner," and winning charities get up to $200K in AWS credits plus a team to take the prototype toward deployment in their own AWS account.</p>
+    <div class="criteria">
+      <div><b>Technical innovation</b><span>Visible cleverness: grounded answers, tools, memory, voice.</span></div>
+      <div><b>Social impact potential</b><span>One person's before/after, then the number at scale.</span></div>
+      <div><b>Feasibility</b><span>Could a small nonprofit run and afford this next month?</span></div>
+      <div><b>Presentation quality</b><span>Virtual, cross-city, time-boxed. The demo has to land.</span></div>
+    </div>
+    <div class="callout">
+      <p><b>What the judges praised in the UK winner:</b> a reading tool that supported struggling children without shame. They praised its empathy and dignity, not just its technical quality. Build something the nonprofit rep will champion, and make one design choice that protects the end user's dignity.</p>
+    </div>
+    <p>Tools you'll be handed: temporary AWS accounts with <b>Amazon Bedrock</b> (Nova and Claude models), <b>Bedrock AgentCore</b> (runtime, memory, gateway), and <b>Kiro</b>. On Day 1, AWS runs workshops on agentic AI and AI-DLC, its spec-driven workflow for AI coding agents. Solutions Architects are on site all three days.</p>
+  </section>
+
+  <section id="countdown">
+    <h2>Countdown <span class="progress" id="progress"></span></h2>
+    <p>Checks are saved in this browser only.</p>
+
+    <div class="day">
+      <div class="when"><b>Thu</b>Oct 29</div>
+      <ul>
+        <li><label><input type="checkbox" id="c1"><span>Install AWS CLI v2: <code>winget install Amazon.AWSCLI</code></span></label></li>
+        <li><label><input type="checkbox" id="c2"><span>Install AgentCore CLI: <code>npm install -g @aws/agentcore</code></span></label></li>
+        <li><label><input type="checkbox" id="c3"><span>Update uv (yours is from Mar 2025): <code>uv self update</code></span></label></li>
+        <li><label><input type="checkbox" id="c4"><span>Install the skills: <code>setup\install-skills.ps1</code>, then run <code>setup\preflight.ps1</code> until it says Ready</span></label></li>
+        <li><label><input type="checkbox" id="c5"><span>Check your school inbox for Immersion Day recordings, team or nonprofit assignments, and the Terms &amp; Conditions</span></label></li>
+      </ul>
+    </div>
+    <div class="day">
+      <div class="when"><b>Fri</b>Oct 30</div>
+      <ul>
+        <li><label><input type="checkbox" id="c6"><span>Run the AgentCore quickstart end to end on a personal AWS account: create → dev → deploy → invoke → tear down. Costs cents. Doing it once means you're the person who already knows the error messages.</span></label></li>
+        <li><label><input type="checkbox" id="c7"><span>Set a $5 AWS Budgets alarm on that account first</span></label></li>
+        <li><label><input type="checkbox" id="c8"><span>Try Claude Code against Bedrock once (<code>CLAUDE_CODE_USE_BEDROCK=1</code> + <code>AWS_REGION</code>) so you know how, in case the event allows it</span></label></li>
+      </ul>
+    </div>
+    <div class="day">
+      <div class="when"><b>Sat</b>Oct 31</div>
+      <ul>
+        <li><label><input type="checkbox" id="c9"><span>3-hour dry run. Pick a real local nonprofit (e.g. a Seattle food bank or literacy program), read its website, then chain the skills: discovery → agent → demo UI → responsible-AI eval → pitch. Note where you got stuck.</span></label></li>
+        <li><label><input type="checkbox" id="c10"><span>Save the dry-run repo as your personal starter, with Streamlit chat, replay mode and an eval runner already wired</span></label></li>
+      </ul>
+    </div>
+    <div class="day">
+      <div class="when"><b>Sun</b>Nov 1</div>
+      <ul>
+        <li><label><input type="checkbox" id="c11"><span>Install Kiro and do its getting-started guide. AWS staff and teammates will use it, and you should be able to pair in it.</span></label></li>
+        <li><label><input type="checkbox" id="c12"><span>Skim AI-DLC (<code>awslabs/aidlc-workflows</code>). It installs into Claude Code with <code>aidlc config --harness claude</code>, so you'll already know the Day 1 workshop's vocabulary.</span></label></li>
+        <li><label><input type="checkbox" id="c13"><span>Write and say out loud your 20-second intro (see Standing out)</span></label></li>
+      </ul>
+    </div>
+    <div class="day">
+      <div class="when"><b>Mon</b>Nov 2</div>
+      <ul>
+        <li><label><input type="checkbox" id="c14"><span>Pack: laptop + charger, phone hotspot, photo ID for building entry, earbuds for the virtual pitch, notebook</span></label></li>
+        <li><label><input type="checkbox" id="c15"><span>Re-run preflight. Close extra apps, turn off notifications, and set up a clean browser profile for demos.</span></label></li>
+        <li><label><input type="checkbox" id="c16"><span>Sleep. Keynote is 8:00 am.</span></label></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="standout">
+    <h2>Standing out as the student</h2>
+    <p class="lede">Most professionals on your team will show up with general experience. You can show up already set up: AgentCore tested, a starter repo, and skills that turn a messy session into a brief in minutes. Experienced developers respect software that's already running more than titles, so offer that.</p>
+    <h3>Your 20-second intro</h3>
+    <pre>"I'm [name], a student at [school]. I build agents in Python and TypeScript,
+and I've already run the AgentCore + Strands stack end to end, so I can have
+a working agent on our nonprofit's problem by lunch tomorrow. I'm happy to
+own the agent backend or the demo, whichever the team needs."</pre>
+    <h3>Moves that work</h3>
+    <ul class="plain">
+      <li><b>Be the scribe in the nonprofit deep-dive.</b> Then post the brief within 30 minutes. Whoever writes the problem statement steers the team.</li>
+      <li><b>Talk to the nonprofit rep directly,</b> and keep doing it. They're the person who wins. Show them concepts early and put their reaction in the brief.</li>
+      <li><b>Take a lane the demo depends on:</b> the agent backend or the demo UI. If you built the demo, ask to drive it on Day 3.</li>
+      <li><b>Show progress as screenshots and links</b> in the team channel, not as status updates.</li>
+      <li><b>Disagree with options, not opinions:</b> "Two ways, here's the tradeoff, I'd pick A." If a senior picks B, commit and make B work.</li>
+      <li><b>Bring the Solutions Architects in early.</b> Ask a sharp question on Day 1. They remember who did.</li>
+      <li><b>Volunteer for the post-event deployment team.</b> That's months of real AWS work for a real nonprofit, with AWS people watching.</li>
+      <li>LinkedIn the same evening with a specific note: the nonprofit rep, your SA, and anyone whose lightning talk you liked.</li>
+    </ul>
+    <div class="callout"><p><b>Watch out:</b> don't flood the team with long AI-generated docs. Keep every artifact to one screen. Use Claude Code to move faster and to keep the team aligned, not to produce volume.</p></div>
+  </section>
+
+  <section id="kit">
+    <h2>Your Claude Code kit</h2>
+    <p>Six skills in <code>hackathon-kit/skills</code>. Once installed in <code>~/.claude/skills</code>, Claude Code picks the right one from what you ask, or you can name it.</p>
+    <div class="skills">
+      <div class="skill"><span class="when">Day 1 · deep-dive</span><span class="name">nonprofit-discovery</span><p>Live question list for the nonprofit rep, then notes → one-page brief, scoped golden path, three concepts scored on the judging criteria.</p><span class="say">"Here are my notes from the deep-dive, write the brief"</span></div>
+      <div class="skill"><span class="when">Day 1–2 · build</span><span class="name">agentcore-agent</span><p>Preflight for temporary event accounts, official scaffold, tools, RAG with citations, memory, deploy, and when to stop fighting IAM and ask an SA.</p><span class="say">"Scaffold the agent from the brief"</span></div>
+      <div class="skill"><span class="when">Day 2 · build</span><span class="name">demo-frontend</span><p>Streamlit or React golden path, synthetic seed data, streaming, citations on screen, and a record/replay mode so the demo works with wifi off.</p><span class="say">"Build the demo UI with replay mode"</span></div>
+      <div class="skill"><span class="when">Day 2 pm · harden</span><span class="name">responsible-ai-review</span><p>Risk table, Bedrock Guardrails, crisis escalation, and a 20–30 case eval with before/after numbers for a slide.</p><span class="say">"Run the responsible AI review"</span></div>
+      <div class="skill"><span class="when">Day 2–3 · feasibility</span><span class="name">production-handoff</span><p>Architecture diagram of what exists, monthly cost at the nonprofit's scale from current prices, runbook for non-technical staff, handoff README.</p><span class="say">"What would this cost the nonprofit per month?"</span></div>
+      <div class="skill"><span class="when">Day 3 · present</span><span class="name">pitch-builder</span><p>Story-led script mapped to the criteria, slide outline, judge Q&amp;A bank, and a blunt critique of a timed rehearsal.</p><span class="say">"Build the 4-minute pitch"</span></div>
+    </div>
+    <p style="margin-top:16px">Also in the kit: <code>templates/CLAUDE.md</code> to drop into the team repo on Day 1 (scope, deadlines, conventions), plus <code>setup/preflight.ps1</code> and <code>setup/install-skills.ps1</code>.</p>
+    <p><b>On any machine, including one the event hands you,</b> one line installs this kit and jmo-skills as Claude Code plugins:</p>
+    <pre># Mac / Linux / cloud IDE
+curl -fsSL https://raw.githubusercontent.com/MegaGrega/breaking-barriers-kit/main/setup/bootstrap.sh | sh
+
+# Windows
+irm https://raw.githubusercontent.com/MegaGrega/breaking-barriers-kit/main/setup/bootstrap.ps1 | iex</pre>
+    <p>No Claude Code there at all? Each <code>SKILL.md</code> is plain markdown, so you can paste it into Kiro as a steering file.</p>
+    <p><b>Ask before pointing tools at the event account.</b> On Day 1, ask an SA whether you can run Claude Code against the event's Bedrock (<code>CLAUDE_CODE_USE_BEDROCK=1</code>). If not, use your own Claude plan for coding and the event account only for the app.</p>
+  </section>
+
+  <section id="ideas">
+    <h2>Idea patterns</h2>
+    <p>Most nonprofit problems take one of four shapes. Spot the shape in the deep-dive and you already know the stack.</p>
+    <div class="shapes">
+      <div><b>Staff copilot</b>Grounded Q&amp;A over the org's own guides, with citations.</div>
+      <div><b>Intake &amp; routing</b>Conversation → structured record → right program or person.</div>
+      <div><b>Personalised content</b>Same info, right language, reading level, format.</div>
+      <div><b>Matching &amp; logistics</b>Supply ↔ need: food, volunteers, shelter beds.</div>
+    </div>
+
+    <div class="track">
+      <h3>Education</h3>
+      <div class="ideas">
+        <div class="idea"><h4>Shame-free reading buddy <span class="tag">UK winner shape</span></h4><p>A child reads aloud. The agent generates stories at their level about their interests, praises effort, and logs progress for volunteer tutors.</p><p class="stack">Nova Sonic (voice) · Bedrock · AgentCore Memory</p><p class="dignity">Dignity: never shows a level or "behind" label to the child.</p></div>
+        <div class="idea"><h4>Tell it once <span class="tag">UK winner shape</span></h4><p>A young adult does one conversational intake. The agent builds a profile, matches training and job programs, and gives staff a warm handoff summary.</p><p class="stack">Strands tools (eligibility as code) · AgentCore Memory · DynamoDB</p><p class="dignity">Dignity: no repeating your story to every caseworker.</p></div>
+        <div class="idea"><h4>Adviser copilot</h4><p>Staff and volunteers ask policy or program questions and get answers grounded in the org's documents, with page citations and an "ask a supervisor" fallback.</p><p class="stack">Bedrock Knowledge Base (S3 Vectors) · Guardrails</p></div>
+        <div class="idea"><h4>Parent bridge</h4><p>School or nonprofit messages are rewritten at the parent's reading level and in their language over SMS. Replies are translated back.</p><p class="stack">Bedrock · Amazon Translate · End User Messaging SMS</p></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <h3>Health &amp; food security</h3>
+      <div class="ideas">
+        <div class="idea"><h4>Benefits screener → ready-to-file</h4><p>Plain-language questions check SNAP, WIC and Medicaid eligibility using deterministic rules, then output a document checklist and pre-filled forms.</p><p class="stack">Strands tools · Bedrock · Textract</p><p class="dignity">Dignity: no account needed, explains why each question is asked.</p></div>
+        <div class="idea"><h4>Paperwork explainer</h4><p>Photograph discharge or clinic instructions and get a plain-language, translated version with "call your nurse if…" escalation. It never diagnoses.</p><p class="stack">Textract · Bedrock · Guardrails (denied topics)</p></div>
+        <div class="idea"><h4>Surplus food matcher <span class="tag">UK charity shape</span></h4><p>Incoming donations are matched to partner pantries by need, expiry and distance, with a simple demand forecast.</p><p class="stack">Strands tools · Location Service · Bedrock</p></div>
+        <div class="idea"><h4>Caregiver companion <span class="tag">UK charity shape</span></h4><p>Remembers a caregiver's situation across visits and answers from curated, cited sources. It escalates to a nurse line.</p><p class="stack">AgentCore Memory (long-term) · Knowledge Base</p></div>
+      </div>
+    </div>
+
+    <div class="track">
+      <h3>Climate resilience</h3>
+      <div class="ideas">
+        <div class="idea"><h4>Personal preparedness plan</h4><p>Takes an address plus household needs (meds, mobility, pets, language) and produces a plan, a go-bag checklist and nearby shelters. During heat waves it calls vulnerable residents to check in.</p><p class="stack">Bedrock · Location Service · Nova Sonic</p></div>
+        <div class="idea"><h4>Crisis message triage</h4><p>Inbound texts during an event are classified by urgency, with location and needs extracted onto a map for volunteer dispatch. A human confirms every dispatch.</p><p class="stack">Bedrock · Strands tools · map UI</p></div>
+        <div class="idea"><h4>Aid intake from photos</h4><p>Survivors photograph damage. A multimodal model drafts the aid application and asks only the questions still missing.</p><p class="stack">Nova (multimodal) · Bedrock · S3</p></div>
+        <div class="idea"><h4>Volunteer shift matcher</h4><p>Matches volunteer skills and availability to disaster-response shifts and drafts the briefing for each shift.</p><p class="stack">Strands tools · DynamoDB · Bedrock</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="days">
+    <h2>Day by day</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>When</th><th>Event</th><th>Your target</th></tr></thead>
+        <tbody>
+          <tr><td>Tue 8:00</td><td>Keynote, nonprofit deep-dives</td><td>Scribe the deep-dive. Ask the live question list.</td></tr>
+          <tr><td>Tue midday</td><td>Agentic AI + AI-DLC workshops, team formation</td><td>Brief posted within 30 min. Concepts shown to the nonprofit rep.</td></tr>
+          <tr><td>Tue end</td><td>Brainstorm, cross-hub networking</td><td>Repo + CLAUDE.md up. Agent answers the golden-path prompt locally.</td></tr>
+          <tr><td>Wed 12:00</td><td>Build sprints, SA guidance</td><td>Golden path works end to end locally.</td></tr>
+          <tr><td>Wed 17:00</td><td>Nonprofit check-ins, lightning talks</td><td>Deployed (or decided to demo locally). Eval v1 run. Cost estimate drafted.</td></tr>
+          <tr><td>Thu 11:00</td><td>Refinement + testing</td><td>Feature freeze. Only fixes, replay recording, pitch after this.</td></tr>
+          <tr><td>Thu 12:00</td><td>Presentation prep</td><td>Backup video recorded. Two full rehearsals with a timer.</td></tr>
+          <tr><td>Thu pm</td><td>Virtual cross-city presentations, awards</td><td>Single-window share, fresh credentials, replay ready.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="sources">
+    <h2>Sources</h2>
+    <ul class="plain sources">
+      <li><a href="https://aws-experience.com/amer/smb/e/a59ab/aws-breaking-barriers-2026-ai-for-good-hackathon-seattle---3-days">Event page: agenda, FAQs, judging framework</a></li>
+      <li><a href="https://london-tv.co.uk/bookmark-reading-charity-selected-as-london-winner-at-aws-generative-ai-hackathon/">Bookmark Reading Charity selected as London winner</a></li>
+      <li><a href="https://press.aboutamazon.com/uk/news/aws/2026/1/aws-helps-charities-to-break-through-barriers-with-generative-ai">AWS UK press release: charities, judging, $200K credits</a></li>
+      <li><a href="https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agentcore-get-started-cli.html">AgentCore CLI quickstart</a></li>
+      <li><a href="https://github.com/awslabs/aidlc-workflows">AI-DLC workflows (awslabs)</a></li>
+      <li><a href="https://code.claude.com/docs/en/amazon-bedrock">Claude Code on Amazon Bedrock</a></li>
+      <li><a href="https://strandsagents.com/docs/user-guide/quickstart/python/">Strands Agents Python quickstart</a></li>
+    </ul>
+  </section>
+</div>
+
+<script>
+(function () {
+  var KEY = "bb-countdown";
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { state = {}; }
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('#countdown input[type=checkbox]'));
+  var progress = document.getElementById("progress");
+  function render() {
+    var done = boxes.filter(function (b) { return b.checked; }).length;
+    progress.textContent = done + "/" + boxes.length;
+  }
+  boxes.forEach(function (b) {
+    if (state[b.id]) b.checked = true;
+    b.addEventListener("change", function () {
+      state[b.id] = b.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>

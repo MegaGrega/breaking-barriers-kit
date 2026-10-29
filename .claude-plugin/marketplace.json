@@ -1,0 +1,16 @@
+{
+  "name": "breaking-barriers-kit",
+  "owner": {
+    "name": "MegaGrega"
+  },
+  "metadata": {
+    "description": "Claude Code skills for the AWS Breaking Barriers AI for Good hackathon."
+  },
+  "plugins": [
+    {
+      "name": "breaking-barriers",
+      "source": "./",
+      "description": "Nonprofit discovery, AgentCore agents, demo frontends, responsible AI, production handoff, and pitch building."
+    }
+  ]
+}
